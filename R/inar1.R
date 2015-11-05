@@ -34,15 +34,16 @@ poinar <-
     }
 
     coef <- round(solve(R, r), 4)
-    lambda.hat <- mean(x)
-    Vp.1 <- lambda.hat*((1-sum(coef^2))/(1-sum(coef)))
+    xbar <- mean(x)
+    meanerrohat <- xbar*(1-sum(coef))
+    Vp.1 <- ((1-sum(coef^2))/(1-sum(coef)))
 
     AICc. <- n*log(Vp.1) + n*((1+order.max/n)/(1-(order.max+2)/n))
     AIC. <-  -n*log(Vp.1) + 2*order.max
     BIC. <-  n*log(Vp.1) + (order.max/n)*log(n)
 
-    res <- list(order = order.max, ar = coef, var.pred = lambda.hat,
-                x.mean = lambda.hat, bic= BIC., aicc=AICc.,aic = AIC., n.used = n, order.max = order.max,
+    res <- list(order = order.max, ar = coef, var.pred = meanerrohat,
+                x.mean = xbar, bic= BIC., aicc=AICc.,aic = AIC., n.used = n, order.max = order.max,
                 partialacf = NULL, resid = NULL, method = "yule-walker", series = series,
                 frequency = xfreq, call = match.call())
     class(res) <- "ar"

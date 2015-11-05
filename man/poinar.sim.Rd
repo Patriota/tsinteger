@@ -18,15 +18,22 @@ poinar.sim(n, order.max, alpha, lambda, n.start = NA)
 \item{n.start}{the length of 'burn-m' period. If na, the default, a reasonable valve is computed.}
 }
 \value{
-For \code{inar} and its methods a list of class \code{"inar"} with the following elements:
+A time-series object of class "ts".
 }
 \description{
-definir
+Simulate from an Inar model
 }
 \examples{
-
-\dontrum{
-function (blah)
+# A Poisson INAR simulation
+ts.sim <- poinar.sim(n = 100, order.max = 2, alpha = c(0.1,0.4),lambda = 2, n.start=200)
+ts.plot(ts.sim)
 }
+\references{
+Du, J.G. and Li,Y.(1991):
+ The integer-valued autorregressive (INAR(p)) model.
+ \emph{Journal of time series analysis} \bold{12}, 129--142.
+}
+\seealso{
+\code{\link{poinar}}
 }
 
