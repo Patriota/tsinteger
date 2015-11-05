@@ -1,7 +1,7 @@
 
 #' Function poinar.sim
 #'
-#' definir
+#' Simulate from an Inar model
 #'
 #' @param n the length of outputs series. A strictly positive integer.
 #' @param order.max the integer component p is the INAR order.

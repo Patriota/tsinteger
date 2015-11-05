@@ -1,7 +1,7 @@
 
 #' Function error.nginar
 #'
-#' Fit in inar model to a univariate time series by yule-walker method
+#' definir
 #'
 #' @param n the length of outputs series. A strictly positive integer.
 #' @param alpha a vector of INAR coefficients.
