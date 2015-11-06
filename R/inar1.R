@@ -46,26 +46,116 @@ poinar <-
       }
     }
 
+    residuals <- function(x,coef,p,lambda)
+    {
+      x<- x
+      e <- NULL
+      for(t in (p+1):length(x) )
+      {
+        e[t] <- x[t] - ( sum(coef*x[(t-1):(t-p)]) + lambda)
+      }
+      return(e)
+    }
+
     coef <- round(solve(R, r), 4)
-    xbar <- mean(x)
-    meanerrohat <- xbar*(1-sum(coef))
-    Vp.1 <- ((1-sum(coef^2))/(1-sum(coef)))
+    xbar <- mean(x)	#mean of the serie
+    mu.e <- var.error <- xbar*(1-sum(coef)) #mean and variance of the error
+    mu.x <- mu.e/(1-sum(coef))
+    sum.var <- sum( coef*(1-coef))
+                    Vp <- var.error + mu.x*sum.var
+                    fitted <- poinar.sim(length(x), order.max = length(coef), alpha = coef,lambda = mu.e, n.start=200)
+                    resid <- residuals(x,coef,order.max,mu.e)
+                    rms <- sqrt(mean(resid*resid))
 
-    AICc. <- n*log(Vp.1) + n*((1+order.max/n)/(1-(order.max+2)/n))
-    AIC. <-  -n*log(Vp.1) + 2*order.max
-    BIC. <-  n*log(Vp.1) + (order.max/n)*log(n)
+                    AICc. <- n*log(Vp) + n*((1+order.max/n)/(1-(order.max+2)/n))
+                    AIC. <-  -n*log(Vp) + 2*order.max
+                    BIC. <-  n*log(Vp) + (order.max/n)*log(n)
 
-    res <- list(order = order.max, ar = coef, var.pred = meanerrohat,
-                x.mean = xbar, bic= BIC., aicc=AICc.,aic = AIC., n.used = n, order.max = order.max,
-                partialacf = NULL, resid = NULL, method = "yule-walker", series = series,
-                frequency = xfreq, call = match.call())
-    class(res) <- "ar"
-    res
+                    res <- list(order = order.max,
+                                coef = coef,
+                                lambda= mu.e,
+                                x.mean = xbar,
+                                rms = rms,
+                                fitted.values <- fitted,
+                                bic= BIC.,
+                                aicc=AICc.,
+                                aic = AIC.,
+                                n.used = n,
+                                order.max = order.max,
+                                resid = na.remove(resid),
+                                method = "yule-walker",
+                                series = series,
+                                frequency = xfreq,
+                                call = match.call())
+                    class(res) <- "inar"
+                    res
   }
 
 
-alpha=c(0.5)
-order.max=1
-n=300
-lambda=2
-n.start = 150
+
+coef.inar <-
+  function(object, ...)
+  {
+    if(!inherits(object, "inar"))
+      stop("method is only for arma objects")
+    return(object$coef)
+  }
+
+
+residuals.inar <-
+  function(object, ...)
+  {
+    if(!inherits(object, "inar"))
+      stop("method is only for arma objects")
+    return(object$resid)
+  }
+
+fitted.inar <-
+  function(object, ...)
+  {
+    if(!inherits(object, "inar"))
+      stop("method is only for arma objects")
+    return(object$fitted.values)
+  }
+
+print.inar <-
+  function(x, digits = max(3, getOption("digits") - 3), ...)
+  {
+    if(!inherits(x, "inar"))
+      stop("method is only for inar objects")
+    cat("\nCall:\n", deparse(x$call), "\n\n", sep = "")
+    rq <- structure(quantile(x$resid),names=c("Min","1Q","Median","3Q","Max"))
+    print(rq,digits = digits,...)
+    cat("Coefficient(s):\n")
+    print.default(format(coef(x), digits = digits),
+                  print.gap = 2, quote = FALSE)
+    cat("\nFit:\n")
+    cat("RMS=", format(x$rms, digits = digits),
+        ",  lambda estimated as = ", format(round(x$lambda, 2)),
+        ",  AIC = ", format(round(x$aic, 2)), "\n", sep = "")
+    cat("\n")
+    invisible(x)
+  }
+
+
+plot.inar <-
+  function(x, ask = interactive(), ...)
+  {
+    if(!inherits(x, "inar"))
+      stop("method is only for inar objects")
+    op <- par()
+    par(ask = ask, mfrow = c(2, 1))
+    data <- eval.parent(parse(text = x$series))
+    if(any(is.na(data))) stop(paste("NAs in", x$series))
+    plot(data, main = x$series, ylab = "Series")
+    plot(x$resid, main = "Residuals", ylab = "Series")
+    acf(data, main = paste("ACF of", x$series))
+    acf(x$resid, main = "ACF of Residuals",
+        na.action = na.remove)
+    pacf(data, main = paste("PACF of", x$series))
+    pacf(x$resid, main = "PACF of Residuals",
+         na.action = na.remove)
+    par(ask = op$ask, mfrow = op$mfrow)
+    invisible(x)
+  }
+

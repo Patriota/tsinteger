@@ -13,15 +13,19 @@ nginar.sim(n, alpha, mu, n.start = 150)
 
 \item{mu}{a vector.}
 
-\item{n.start}{the length of 'burn-m' period. If na, the default, a reasonable valve is computed.}
+\item{n.start}{the length of 'burn-in' period. If na, the default, a reasonable valve is computed.}
 }
 \value{
 Resultados
 }
 \description{
-definir
+Simulate from an Inar model
 }
 \examples{
+
+# A new geometric INAR simulation
+ts.sim <- nginar.sim(n = 100, alpha = 0.4, mu = 2)
+ts.plot(ts.sim)
 
 }
 

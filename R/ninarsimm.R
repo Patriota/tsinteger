@@ -6,11 +6,15 @@
 #' @param n A strictly positive integer.
 #' @param alpha a vector of INAR coefficients.
 #' @param mu a vector.
-#' @param n.start the length of 'burn-m' period. If na, the default, a reasonable valve is computed.
+#' @param n.start the length of 'burn-in' period. If na, the default, a reasonable valve is computed.
 #'
 #'@return Resultados
 #'
 #'@examples
+#'
+#'# A new geometric INAR simulation
+#'ts.sim <- nginar.sim(n = 100, alpha = 0.4, mu = 2)
+#'ts.plot(ts.sim)
 #'
 #' @export
 nginar.sim <- function(n, alpha,mu, n.start=150){

@@ -17,9 +17,14 @@ nginar(x, order.max = 1, series = NULL)
 
 }
 \description{
-definir
+Fit in inar model to a univariate time series by yule-walker method
 }
 \examples{
+
+data(sexoffences)
+mean(sexoffences)
+var(sexoffences)
+nginar(sexoffences)
 
 }
 

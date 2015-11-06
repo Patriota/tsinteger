@@ -11,6 +11,11 @@
 #'
 #'@examples
 #'
+#'data(sexoffences)
+#'mean(sexoffences)
+#'var(sexoffences)
+#'nginar(sexoffences)
+#'
 #' @export
 nginar <-
   function(x, order.max = 1,series=NULL)
