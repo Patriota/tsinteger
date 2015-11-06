@@ -7,7 +7,7 @@
 #' @param order.max the integer component p is the INAR order.
 #' @param alpha a vector of INAR coefficients.
 #' @param lambda the mean of the poisson distribution.
-#' @param n.start the length of 'burn-m' period. If na, the default, a reasonable valve is computed.
+#' @param n.start the length of 'burn-in' period. If na, the default, a reasonable valve is computed.
 #'
 #'
 #'@return A time-series object of class "ts".
