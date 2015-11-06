@@ -9,11 +9,24 @@
 #'
 #'@return Resultados
 #'
-#'@examples
+#'@references
 #'
-#'\dontrum{
-#'function (blah)
-#'}
+#'Du, J.G. and Li,Y.(1991):
+#'The integer-valued autorregressive (INAR(p)) model.
+#'\emph{Journal of time series analysis} \bold{12}, 129--142.
+#'
+#'Freeland RK. Statistical analysis of discrete time series with applications to the analysis of workers compensation
+#'claims data [unpublished doctoral dissertation]. Vancouver (Canada): University of British Columbia; 1998.
+#'
+#'@examples
+#'data(claims)
+#'mean(claims[,5])
+#'var(claims[,5])
+#'var(claims[,5])/mean(claims[,5])  # dispersion index
+#'acf(claims[,5])
+#'pacf(claims[,5])
+#'poinar(claims[,5], 1)
+#'
 #' @export
 poinar <-
   function(x, order.max,series=NULL)
