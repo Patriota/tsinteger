@@ -1,10 +1,14 @@
 Package: tsinteger
 Title: Time series of counts analysis
 Version: 0.1
-Authors@R: person("Bruno", "Patriota", email = "brunopatriotabps@gmail.com", role = c("aut", "cre"))
+Authors@R: c(person("Bruno", "Patriota", role = "aut",
+                    email = "brunopatriotabps@gmail.com"),
+             person("Manoel", "Santos", role = c("aut", "cre"),
+                    email = "mn.neco@gmail.com"),
+             person("Marcelo", "Bourguinon", role = "ctb", email = "m.p.bourguignon@gmail.com" ))
 Description: Time series analysis and count data
 Depends:
-    R (>= 3.2.2)
+    R (>= 2.10.0)
 License: GNU GPL v2
 LazyData: true
 Imports:
@@ -12,4 +16,5 @@ Imports:
     forecast,
     tseries
 RoxygenNote: 5.0.0
+
 
