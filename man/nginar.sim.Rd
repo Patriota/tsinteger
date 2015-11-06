@@ -23,8 +23,5 @@ definir
 }
 \examples{
 
-\dontrum{
-function (blah)
-}
 }
 

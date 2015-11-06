@@ -1,7 +1,7 @@
 
 #' Function nginar.sim
 #'
-#' definir
+#' Simulate from an Inar model
 #'
 #' @param n A strictly positive integer.
 #' @param alpha a vector of INAR coefficients.
@@ -12,12 +12,19 @@
 #'
 #'@examples
 #'
-#'\dontrum{
-#'function (blah)
-#'}
 #' @export
 nginar.sim <- function(n, alpha,mu, n.start=150){
   length. <- n + n.start
+  error.nginar <- function(length.,alpha,mu){
+    epsilon <- rep(NA, times = n)
+    a = (alpha*mu)/(mu - alpha)
+    for(i in 1:length.){
+      u <- runif(1,0,1)
+      ifelse(u < a,epsilon[i] <- rgeom(1, 1 - (alpha/(1 + alpha))),epsilon[i] <- rgeom(1, 1 - (mu/(1+mu))))
+    }
+    return(epsilon)
+  }
+
   x <- rep(NA, times = length.)
   epsilon <- error.nginar(length.,alpha,mu)
   x[1] = rgeom(1, 1-(mu/(1+mu)))
