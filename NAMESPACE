@@ -3,3 +3,4 @@
 export(error.nginar)
 export(nginar.sim)
 export(poinar)
+export(poinar.sim)

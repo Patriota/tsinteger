@@ -15,7 +15,7 @@ poinar.sim(n, order.max, alpha, lambda, n.start = NA)
 
 \item{lambda}{the mean of the poisson distribution.}
 
-\item{n.start}{the length of 'burn-m' period. If na, the default, a reasonable valve is computed.}
+\item{n.start}{the length of 'burn-in' period. If na, the default, a reasonable valve is computed.}
 }
 \value{
 A time-series object of class "ts".
@@ -27,6 +27,7 @@ Simulate from an Inar model
 # A Poisson INAR simulation
 ts.sim <- poinar.sim(n = 100, order.max = 2, alpha = c(0.1,0.4),lambda = 2, n.start=200)
 ts.plot(ts.sim)
+
 }
 \references{
 Du, J.G. and Li,Y.(1991):

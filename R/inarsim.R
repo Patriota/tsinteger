@@ -18,12 +18,13 @@
 #'  Du, J.G. and Li,Y.(1991):
 #'  The integer-valued autorregressive (INAR(p)) model.
 #'  \emph{Journal of time series analysis} \bold{12}, 129--142.
+#'
 #'@examples
 #'# A Poisson INAR simulation
 #'ts.sim <- poinar.sim(n = 100, order.max = 2, alpha = c(0.1,0.4),lambda = 2, n.start=200)
 #'ts.plot(ts.sim)
-#' @export
 #'
+#' @export
 poinar.sim <- function(n, order.max, alpha,lambda, n.start=NA){
   length. <- n + n.start
   x <- rep(NA, times = length.)
